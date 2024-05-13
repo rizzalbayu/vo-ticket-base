@@ -60,6 +60,7 @@ export class UserController {
 
   @EventPattern('ticket_update')
   async hadleTicketQueue(data: any) {
-    console.log(`succeeded to update ticket with title = "${data.title}"`);
+    await this.usersService.userHistoryCreate(data);
+    // console.log(`succeeded to update ticket with title = "${data.title}"`);
   }
 }

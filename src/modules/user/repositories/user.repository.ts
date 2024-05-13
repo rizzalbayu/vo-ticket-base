@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../shared/adapters/prisma/prisma.service';
 import { UserModel, UserPaginationModel } from '../models/user.model';
-import { User } from '@prisma/client';
+import { User, UserHistory } from '@prisma/client';
 import { GetUserQueryDto, UserCreateRequestDto } from '../dtos/user-create.dto';
 
 @Injectable()
@@ -59,6 +59,15 @@ export class UserRepository {
       },
     });
     return this.toUserModel(user);
+  }
+
+  async createUserHistory(data: any) {
+    const user = await this.prismaService.userHistory.create({
+      data: {
+        user_id: data.userId,
+        title: data.title,
+      },
+    });
   }
 
   toUserModel(user: User): UserModel {

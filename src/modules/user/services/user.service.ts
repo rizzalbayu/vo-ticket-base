@@ -37,4 +37,16 @@ export class UserService {
 
     await this.userRepository.createUser(userCreateRequest);
   }
+
+  async userHistoryCreate(data: any) {
+    if (!data.userId) return;
+    await this.getUserDetail(data.userId);
+
+    let title = `Success create ticket with title = ${data.title} and id = ${data.id}`;
+    if (data.type && data.type === 'update') {
+      title = `Success update ticket with title = ${data.title} and id = ${data.id}`;
+    }
+
+    await this.userRepository.createUserHistory({ userId: data.userId, title });
+  }
 }
