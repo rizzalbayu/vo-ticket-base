@@ -3,6 +3,7 @@ import { UserRepository } from '../repositories/user.repository';
 import { UserModel, UserPaginationModel } from '../models/user.model';
 import { GetUserQueryDto, UserCreateRequestDto } from '../dtos/user-create.dto';
 import { RESPONSE_MESSAGE } from '../../../shared/constants/response-message.constant';
+import { EventPattern } from '@nestjs/microservices';
 
 @Injectable()
 export class UserService {
@@ -36,5 +37,10 @@ export class UserService {
     }
 
     await this.userRepository.createUser(userCreateRequest);
+  }
+
+  @EventPattern('ticket_update')
+  async hadleTicketQueue(data: any) {
+    console.log(`succeeded to update ticket with titke ${data.title}`);
   }
 }
