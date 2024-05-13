@@ -13,6 +13,7 @@ import {
   RESPONSE_MESSAGE,
   RESPONSE_STATUS,
 } from '../../../shared/constants/response-message.constant';
+import { EventPattern } from '@nestjs/microservices';
 
 @Controller('v1/users')
 export class UserController {
@@ -55,5 +56,10 @@ export class UserController {
       message: RESPONSE_MESSAGE.SUCCESS,
       data: null,
     };
+  }
+
+  @EventPattern('ticket_update')
+  async hadleTicketQueue(data: any) {
+    console.log(`succeeded to update ticket with title = "${data.title}"`);
   }
 }

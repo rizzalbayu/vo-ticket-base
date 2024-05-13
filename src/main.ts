@@ -14,11 +14,11 @@ async function bootstrap() {
       urls: [configService.get<string>('RABBITMQ_URL')],
       queue: configService.get<string>('RABBITMQ_QUEUE'),
       queueOptions: {
-        durable: false,
+        durable: true,
       },
     },
   });
-  // await app.startAllMicroservices();
+  await app.startAllMicroservices();
 
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
